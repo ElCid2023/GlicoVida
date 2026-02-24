@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="description" content="GlicoVida - Receitas e exercícios para diabéticos e pré-diabéticos">
+    <title>GlicoVida - App para Diabéticos</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🩺 GlicoVida</h1>
+        <p>Receitas e Exercícios para Diabéticos</p>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('recipes-tab')">Receitas</button>
+            <button class="tab-btn" onclick="switchTab('exercises-tab')">🏋️ Exercícios</button>
+        </div>
+        <button class="my-plate-btn" onclick="toggleCustomPlate()">🍽️ Meu Plano</button>
+    </header>
+
+    <div class="container">
+        <div id="recipes-tab" class="tab-content active">
+            <div class="filters">
+                <input type="text" id="search" placeholder="🔍 Buscar receitas...">
+                <select id="filterType">
+                    <option value="all">Todas as Refeições</option>
+                    <option value="cafe">Café da Manhã</option>
+                    <option value="almoco">Almoço</option>
+                    <option value="jantar">Jantar</option>
+                    <option value="lanche">Lanche</option>
+                </select>
+            </div>
+            <div id="recipes" class="recipes-grid"></div>
+        </div>
+
+        <div id="exercises-tab" class="tab-content">
+            <div class="filters">
+                <input type="text" id="searchExercise" placeholder="🔍 Buscar exercícios...">
+                <select id="filterIntensity">
+                    <option value="all">Todas Intensidades</option>
+                    <option value="leve">Leve</option>
+                    <option value="moderado">Moderado</option>
+                    <option value="intenso">Intenso</option>
+                </select>
+            </div>
+            <div id="exercises" class="recipes-grid"></div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="custom-plate" class="custom-plate-panel">
+        <div class="plate-header">
+            <h2>🍽️ Meu Prato Personalizado</h2>
+            <button onclick="toggleCustomPlate()" class="close-plate">✖</button>
+        </div>
+        <div id="custom-plate-items" class="plate-items">
+            <p style="text-align:center;color:#999;">Nenhum item adicionado ainda</p>
+        </div>
+        <div id="plate-totals" class="plate-totals"></div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="specialists">
+                <div class="specialist">
+                    <span class="specialist-icon">🧑‍⚕️</span>
+                    <p><strong>Receitas validadas por:</strong><br>Nutricionista CRN 12345</p>
+                </div>
+                <div class="specialist">
+                    <span class="specialist-icon">🏋️</span>
+                    <p><strong>Exercícios validados por:</strong><br>Prof. Educação Física CREF 67890</p>
+                </div>
+            </div>
+            <div class="authorship">
+                <p>© 2026 <strong>JB Cursos e Palestras</strong></p>
+                <p class="disclaimer">Consulte sempre seu médico antes de iniciar qualquer dieta ou exercício</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+        document.getElementById('searchExercise').addEventListener('input', filterExercises);
+        document.getElementById('filterIntensity').addEventListener('change', filterExercises);
+    </script>
+</body>
+</html>
